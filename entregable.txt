@@ -1,0 +1,58 @@
+LABORATORIO: PETICIONES WEB CON JAVASCRIPT (XMLHttpRequest + DOM)
+Alumna: Vianidxi Ximena Cruz Fuentes
+
+PASO 1
+Al hacer clic en "Remove Data" se vacía el contenido del tbody
+(tbody.innerHTML = "") y desaparecen las filas de la tabla.
+
+¿Qué es el objeto generado por XMLHttpRequest?
+Es un objeto del navegador que permite hacer peticiones HTTP a un servidor
+desde JavaScript sin recargar la página (la base de AJAX). Con él se
+configura la petición, se envía y se recibe la respuesta (responseText,
+status, etc.).
+
+¿Qué hace el método open de xhr?
+Prepara o configura la petición: recibe el método HTTP ("GET"), la URL a la
+que se va a consultar (la API de fakestoreapi) y si será asíncrona (true).
+Todavía no la envía; eso lo hace xhr.send().
+
+¿Qué hace el método onload de xhr?
+onload es la función que se ejecuta cuando la respuesta del servidor ya
+llegó completa. Ahí se lee xhr.responseText, se convierte de texto a objeto
+con JSON.parse y se guarda en data.json. Como la petición es asíncrona, el
+resto del código no espera; esta función se llama después.
+
+5. Al escribir data en la consola se muestra un objeto con la propiedad
+json, que es un arreglo de 20 productos. Cada producto es un objeto con id,
+title, price, description, category, image y rating.
+
+PASO 2
+¿Qué significa => en el código?
+Es la sintaxis de función flecha (arrow function), una forma corta de
+escribir una función anónima. "element => { console.log(element); }" es
+equivalente a "function(element) { console.log(element); }". forEach la
+ejecuta una vez por cada elemento del arreglo, pasándole el elemento como
+parámetro.
+
+Después se creó la función genTr(json), que crea un <tr> con cinco <td>
+(id, title, price, description y category) y lo regresa; dentro del forEach
+se agrega cada fila al tbody para llenar la tabla.
+
+PASO 3
+El botón Load Data se conectó desde JavaScript con
+btnLoad.addEventListener("click", ...), sin modificar el HTML.
+
+¿Qué hace filter y cómo funciona includes en este contexto?
+filter recorre el arreglo y crea un arreglo NUEVO solo con los elementos
+para los que la función regresa true; el arreglo original no cambia.
+includes es un método de las cadenas que regresa true si el texto contiene
+la subcadena indicada. Aquí, para cada producto se revisa si su title
+contiene lo que el usuario escribió en el campo de búsqueda
+(e.title.includes(input.value)); si sí, el producto se queda en el arreglo
+filtrado. Distingue mayúsculas y minúsculas, y con el campo vacío regresa
+todos los productos.
+
+PASO 4
+Al hacer clic en Search se filtra data.json con el valor del campo de texto,
+se vacía el contenido actual de la tabla y se llena únicamente con las filas
+de los productos que coinciden (función fillTable).
